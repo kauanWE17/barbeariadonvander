@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Don Vander</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./main.js" defer> </script>
+</head>
+<body>
+    <!-- Tela Inicial -->
+    <div id="homeScreen" class="screen active">
+        <div class="container-center">
+            <div class="logo-circle">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.5 2L9.5 2C9 2 8.5 2.5 8.5 3L8.5 21C8.5 21.5 9 22 9.5 22L14.5 22C15 22 15.5 21.5 15.5 21L15.5 3C15.5 2.5 15 2 14.5 2Z"/>
+                    <line x1="6" y1="12" x2="18" y2="12"/>
+                </svg>
+            </div>
+            <h1 class="title">Don Vander</h1>
+            <p class="subtitle">Barbearia Premium</p>
+            <button onclick="goToScreen('selectDay')" class="btn-primary">Agende Agora</button>
+        </div>
+    </div>
+
+    <!-- Seleção de Dia -->
+    <div id="selectDay" class="screen">
+        <div class="container">
+            <button onclick="goToScreen('homeScreen')" class="btn-back">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar
+            </button>
+            
+            <div class="header">
+                <svg class="icon-header" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <h2>Escolha o Dia</h2>
+            </div>
+            <p class="description">Selecione o melhor dia para seu atendimento</p>
+            
+            <div id="daysGrid" class="grid"></div>
+        </div>
+    </div>
+
+    <!-- Seleção de Horário -->
+    <div id="selectTime" class="screen">
+        <div class="container">
+            <button onclick="goToScreen('selectDay')" class="btn-back">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar
+            </button>
+            
+            <div class="header">
+                <svg class="icon-header" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <h2>Escolha o Horário</h2>
+            </div>
+            <p class="description" id="selectedDayInfo"></p>
+            <p class="subdescription">Horários disponíveis</p>
+            
+            <div id="timesGrid" class="grid-times"></div>
+        </div>
+    </div>
+
+    <!-- Seleção de Serviço -->
+    <div id="selectService" class="screen">
+        <div class="container">
+            <button onclick="goToScreen('selectTime')" class="btn-back">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar
+            </button>
+            
+            <div class="header">
+                <svg class="icon-header" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.5 2L9.5 2C9 2 8.5 2.5 8.5 3L8.5 21C8.5 21.5 9 22 9.5 22L14.5 22C15 22 15.5 21.5 15.5 21L15.5 3C15.5 2.5 15 2 14.5 2Z"/>
+                    <line x1="6" y1="12" x2="18" y2="12"/>
+                </svg>
+                <h2>Escolha o Serviço</h2>
+            </div>
+            <p class="description" id="selectedTimeInfo"></p>
+            
+            <div id="servicesGrid" class="grid-services"></div>
+        </div>
+    </div>
+
+    <!-- Confirmação -->
+    <div id="confirmBooking" class="screen">
+        <div class="container-small">
+            <button onclick="goToScreen('selectService')" class="btn-back">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar
+            </button>
+
+            <div id="successMessage" class="success-message hidden">
+                <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <h2>Agendamento Confirmado!</h2>
+                <p>Você receberá uma confirmação em breve.</p>
+            </div>
+
+            <div id="bookingForm">
+                <h2 class="title-small">Confirmar Agendamento</h2>
+                <p class="description">Preencha seus dados para finalizar</p>
+                
+                <div class="summary-box">
+                    <h3>Resumo do Agendamento</h3>
+                    <div id="bookingSummary"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="customerName" placeholder="Digite seu nome">
+                </div>
+                
+                <div class="form-group">
+                    <label>Telefone/WhatsApp</label>
+                    <input type="tel" id="customerPhone" placeholder="(00) 00000-0000">
+                </div>
+
+                <button onclick="confirmarAgendamento()" id="btnConfirm" class="btn-primary btn-full">
+                    Confirmar Agendamento
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
